@@ -1,10 +1,12 @@
-const header = document.querySelector("#header");
-const contenedor = document.querySelector("contenedor");
-const body = document.querySelector("body");
-window.addEventListener("scroll", function () {
-  if (contenedor.getBoundingClientRect().top < 10) {
+let header = document.getElementById("header");
+
+window.onscroll = function () {
+  if (
+    document.body.scrollTop >= 10 ||
+    document.documentElement.scrollTop >= 100
+  ) {
     header.classList.add("scroll");
   } else {
     header.classList.remove("scroll");
   }
-});
+};

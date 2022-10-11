@@ -1,5 +1,5 @@
 let carrito = [];
-let [precio, img, id, cantidad, nombre] = carrito;
+carrito = localStorage.getItem("carrito") || [];
 
 document.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("carrito")) {
@@ -19,7 +19,7 @@ function mostrarProductos() {
             <img class="imagen" src="${p.img}" alt="producto">
             <div class="informacion"
                   <p class="nombre_producto">${p.nombre}</p>
-                  <p class="precio">${p.precio}</p>
+                  <p class="precio">$${p.precio}</p>
                   <button>Comprar</button>
             </div>
         </div>    `;
@@ -67,7 +67,8 @@ function mostrarCarrito() {
 
   carritoHTML.innerHTML = "";
 
-  carrito.forEach((p, id) => {
+  carrito.forEach((p) => {
+    const { id, nombre, img, precio, cantidad } = p;
     let producto = document.createElement("div");
     producto.classList.add("col-12");
     producto.classList.add("col-md-4");
@@ -79,12 +80,12 @@ function mostrarCarrito() {
     producto.innerHTML = `
         
         <div class="card text-dark" style="width: 18rem;">
-            <img class="card-img-top" src="${p.img}" alt="Card image cap">
+            <img class="card-img-top" src="${img}" alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title">${p.nombre}</h5>
-                <p>$${p.precio}</p>
-                <p>Cantidad: ${p.cantidad}</p>
-                <button class="btn btn-danger boton">Eliminar</button>
+                <h5 class="card-title text-light">${nombre}</h5>
+                <p class="text-light">$${precio}</p>
+                <p class="text-light">Cantidad: ${cantidad}</p>
+                <button class="btn btn-danger boton text-light">Eliminar</button>
             </div>
         </div>`;
 
@@ -97,10 +98,10 @@ function mostrarCarrito() {
   });
 }
 
-function eliminarProducto() {
-  carrito[id].cantidad--;
+function eliminarProducto(id) {
+  carrito = carrito.filter((p) => p.id !== id);
 
-  carrito[id].cantidad === 0 && carrito.splice(id, 1);
+  localStorage.setItem("carrito", JSON.stringify(carrito));
 
   mostrarCarrito();
   totalFinal();
@@ -115,12 +116,15 @@ function totalFinal() {
   const totall = document.getElementById("total");
 
   totall.innerHTML = `<h5>$ ${total}</h5> `;
+  localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
 const vaciar = document.getElementById("vaciar-carrito");
 
 vaciar.addEventListener("click", () => {
   carrito.length = 0;
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+
   mostrarCarrito();
   totalFinal();
 });
