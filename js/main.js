@@ -1,17 +1,22 @@
-let carrito = [];
-carrito = localStorage.getItem("carrito") || [];
+import { stockJson } from "./pinta";
 
-document.addEventListener("DOMContentLoaded", () => {
+let carrito = [];
+let [precio, img, id, cantidad, nombre] = carrito;
+
+document.addEventListener("DOMContentLoaded", async () => {
+  let stock = await stockJson();
+
+  mostrarProductos(stock);
   if (localStorage.getItem("carrito")) {
     carrito = JSON.parse(localStorage.getItem("carrito"));
     mostrarCarrito();
   }
 });
 
-function mostrarProductos() {
+const mostrarProductos = (stock) => {
   const shop = document.getElementById("shop");
 
-  stock.forEach((p) => {
+  stock.forEach((stock) => {
     let producto = document.createElement("div");
 
     producto.innerHTML = `
@@ -30,7 +35,7 @@ function mostrarProductos() {
       agregarProductos(p.id);
     });
   });
-}
+};
 
 mostrarProductos();
 
@@ -90,7 +95,7 @@ function mostrarCarrito() {
         </div>`;
 
     producto.querySelector("button").addEventListener("click", () => {
-      eliminarProducto(id);
+      eliminarProducto(p);
     });
 
     carritoHTML.appendChild(producto);
@@ -98,8 +103,12 @@ function mostrarCarrito() {
   });
 }
 
-function eliminarProducto(id) {
-  carrito = carrito.filter((p) => p.id !== id);
+function eliminarProducto(producto) {
+  if (producto.cantidad === 1) {
+    carrito = carrito.filter((prod) => prod.id !== producto.id);
+  }
+
+  producto.cantidad > 1 && producto.cantidad--;
 
   localStorage.setItem("carrito", JSON.stringify(carrito));
 

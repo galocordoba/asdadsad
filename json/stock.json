@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "nombre": "MUSCULOSA PROJET UNDER ARMOUR",
+    "img": "./imgs/musculosa.jpg",
+    "precio": 9999,
+    "cantidad": 1
+  },
+  {
+    "id": 2,
+    "nombre": "REMERA BIG AROUND RUSTY",
+    "img": "./imgs/roket-over.jpg",
+    "precio": 7489,
+    "cantidad": 1
+  },
+  {
+    "id": 3,
+    "nombre": "REMERA SIGNATURE  UNDER ARMOUR",
+    "img": "./imgs/over-naranja.jpg",
+    "precio": 9999,
+    "cantidad": 1
+  },
+  {
+    "id": 4,
+    "nombre": "REMERA AEROREADY  MOVE ADIDAS",
+    "img": "./imgs/adidas-rayas.jpg",
+    "precio": 8499,
+    "cantidad": 1
+  },
+  {
+    "id": 5,
+    "nombre": "CAMISETA LIVERPOOL FC NIKE",
+    "img": "./imgs/liverpool.jpg",
+    "precio": 16999,
+    "cantidad": 1
+  },
+  {
+    "id": 6,
+    "nombre": "CAMISETA REAL MADRID ADIDAS",
+    "img": "./imgs/real-madrid.jpg",
+    "precio": 16999,
+    "cantidad": 1
+  },
+  {
+    "id": 7,
+    "nombre": "CANGURO FERRARI RACE PUMA",
+    "img": "./imgs/hoodi-ferrari.jpg",
+    "precio": 24895,
+    "cantidad": 1
+  },
+  {
+    "id": 8,
+    "nombre": "BUZO ESSENTIAL BIG LOGO PUM",
+    "img": "./imgs/hoodi-puma.jpg",
+    "precio": 13999,
+    "cantidad": 1
+  }
+]
