@@ -1,22 +1,20 @@
-import { stockJson } from "./pinta";
-
 let carrito = [];
 let [precio, img, id, cantidad, nombre] = carrito;
+let stock = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
-  let stock = await stockJson();
+  stock = await stockJson();
 
-  mostrarProductos(stock);
   if (localStorage.getItem("carrito")) {
     carrito = JSON.parse(localStorage.getItem("carrito"));
-    mostrarCarrito();
   }
+  mostrarProductos(stock);
 });
 
 const mostrarProductos = (stock) => {
   const shop = document.getElementById("shop");
 
-  stock.forEach((stock) => {
+  stock.forEach((p) => {
     let producto = document.createElement("div");
 
     producto.innerHTML = `
@@ -44,17 +42,13 @@ function agregarProductos(id) {
 
   let productoEnCarrito = carrito.find((p) => p.id === id);
 
-  if (productoEnCarrito) {
-    productoEnCarrito.cantidad++;
+  productoEnCarrito && productoEnCarrito.cantidad++;
 
-    console.log(carrito);
-  } else {
+  if (!productoEnCarrito) {
     producto.cantidad = 1;
-
     carrito.push(producto);
-
-    console.log(carrito);
   }
+
   Swal.fire({
     position: "top-end",
     icon: "success",

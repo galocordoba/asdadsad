@@ -8,5 +8,3 @@ const stockJson = async () => {
     console.log("hubo un error", error);
   }
 };
-
-export { stockJson };
