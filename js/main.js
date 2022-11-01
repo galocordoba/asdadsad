@@ -35,8 +35,6 @@ const mostrarProductos = (stock) => {
   });
 };
 
-mostrarProductos();
-
 function agregarProductos(id) {
   let producto = stock.find((p) => p.id === id);
 
@@ -89,7 +87,19 @@ function mostrarCarrito() {
         </div>`;
 
     producto.querySelector("button").addEventListener("click", () => {
-      eliminarProducto(p);
+      Swal.fire({
+        title: "Desea eliminar el producto?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Producto Eliminado");
+          eliminarProducto(p);
+        }
+      });
     });
 
     carritoHTML.appendChild(producto);
@@ -121,13 +131,39 @@ function totalFinal() {
   totall.innerHTML = `<h5>$ ${total}</h5> `;
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
+function vaciarCarrito() {
+  const vaciar = document.getElementById("vaciar-carrito");
 
-const vaciar = document.getElementById("vaciar-carrito");
+  vaciar.addEventListener("click", () => {
+    Swal.fire({
+      title: "Desea eliminar el carrito?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Se vacio el carrito");
+        carrito.length = 0;
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+      }
+    });
 
-vaciar.addEventListener("click", () => {
-  carrito.length = 0;
-  localStorage.setItem("carrito", JSON.stringify(carrito));
+    mostrarCarrito();
+    totalFinal();
+  });
+}
 
-  mostrarCarrito();
-  totalFinal();
+vaciarCarrito();
+
+const guardar = document.getElementById("guardar");
+
+guardar.addEventListener("click", () => {
+  Swal.fire({
+    icon: "success",
+    title: "Muchas gracias por su compra!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
 });
